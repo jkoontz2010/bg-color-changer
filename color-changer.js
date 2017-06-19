@@ -24,15 +24,19 @@
             usedHues[newHue] = true;
         }
 
+        runEverySecond(randomBgColorChange, 10);
+    }
+
+    function runEverySecond(callback, limit) {
         let count=1;
-        randomBgColorChange();
+        callback(); // call immediately since setInterval only executes after designated time has expired
         count++;
 
-        let bgChangeInterval = setInterval(() => {
-            randomBgColorChange();
-            if(count === 10) clearInterval(bgChangeInterval);
+        let everySecond = setInterval(() => {
+            callback();
+            if(count === limit) clearInterval(everySecond);
             count++;
-        }, 1000);
+        }, 1000)
     }
 
     function addSmoothTransitionToBody() {
